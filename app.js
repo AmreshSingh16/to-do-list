@@ -42,7 +42,7 @@ app.get("/" , function(req,res){
     if(foundItems.length === 0){
       Item.insertMany(defaultItems, function(err){
         if(err){
-          console.log(err);
+          console.log(err, "Error in connecting");
         }else{
           console.log("Connected Succesfully");
         }
@@ -114,11 +114,11 @@ app.post("/",function(req,res){
 app.post("/delete", function(req,res){
   const checkedItemId = req.body.checkbox;
   const listName = req.body.listName;
-
+  console.log(checkedItemId);
   if(listName === "Today"){
-      Item.findByIdAndRemove(checkedItemId[0],function(err){
+      Item.findByIdAndRemove(checkedItemId,function(err){
         if(err){
-          console.log("Error in deleting item")
+          console.log("Error in deleting item",err)
         }else{
           res.redirect("/");
         }
